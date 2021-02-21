@@ -1,5 +1,6 @@
 import nltk
 import re
+import sys
 
 def is_vowel(character):
     return character.lower() in ["a", "e", "i", "o", "u"]
@@ -32,17 +33,6 @@ def get_d(word):
     if len(word) > 2:
         return word[-1] == word[-2] and not is_vowel(word[-1])
     return False
-
-porter_keys = [
-    ("ational\\b", "ate", ""),
-    ("sses\\b",    "ss",  ""),
-    ("ing\\b",     "",    "v"),
-    ("ed\\b",      "",    "v"),
-    ("ions?\\b",   "",    ""),
-    ("ies\\b",     "y",   ""),
-    ("s\\b",       "",    "l", 2),
-    ("eed\\b",     "ee",  "m", 0)
-]
 
 step1a = [
     ("sses\\b", "ss"),
@@ -102,6 +92,7 @@ step4 = [
 ]
 
 def lemmize(word):
+    """Takes a single word, removes it's suffixes, and returns it"""
     step1a_word = word
     for key in step1a:
         step1a_word = re.sub(key[0], key[1], word)
@@ -174,7 +165,14 @@ def lemmize(word):
     return step5_word
 
 def main():
-    tokens = nltk.word_tokenize(input("Enter some text to lemmize: ").lower())
+    argv = sys.argv
+    print(argv)
+    if len(argv) >= 2:
+        text = argv[1]
+    else:
+        text = input("Enter some text to lemmize: ")
+
+    tokens = nltk.word_tokenize(text.lower())
     lemmized = []
     for word in tokens:
         lemmized.append(lemmize(word))
