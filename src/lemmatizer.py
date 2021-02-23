@@ -166,7 +166,6 @@ def lemmize(word):
 
 def main():
     argv = sys.argv
-    print(argv)
     if len(argv) >= 2:
         text = argv[1]
     else:
