@@ -91,7 +91,7 @@ step4 = [
     "ment", "ent", "ou", "ism", "ate", "iti", "ous", "ive", "ize"
 ]
 
-def lemmize(word):
+def lemmatize(word):
     """Takes a single word, removes it's suffixes, and returns it"""
     step1a_word = word
     for key in step1a:
@@ -174,7 +174,7 @@ def main():
     tokens = nltk.word_tokenize(text.lower())
     lemmized = []
     for word in tokens:
-        lemmized.append(lemmize(word))
+        lemmized.append(lemmatize(word))
     print(lemmized)
 
 if __name__ == "__main__": main()
